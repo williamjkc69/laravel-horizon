@@ -2,14 +2,15 @@
 
 namespace App\Jobs;
 
+use Carbon\Carbon;
 use App\Mail\TestMail;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
 
 class TestJob implements ShouldQueue
 {
@@ -34,13 +35,13 @@ class TestJob implements ShouldQueue
      */
     public function handle()
     {
-        // $url = Storage::disk('s3')->temporaryUrl(
-        //     $this->filename,
-        //     Carbon::now()->addDays(3),
-        //     ['ResponseContentType' => 'application/octet-stream']
-        // );
-        
-        $url = Storage::disk('s3')->url($this->filename);
+        $url = Storage::disk('s3')->temporaryUrl(
+            'files/'.$this->filename,
+            Carbon::now()->addDays(3),
+            ['ResponseContentType' => 'application/octet-stream']
+        );
+
+        // $url = Storage::disk('s3')->url($this->filename);
         return Mail::to('we@test.test')->queue(new TestMail($this->filename, $url));
     }
 }

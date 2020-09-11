@@ -16,7 +16,7 @@ class TestFileController extends Controller
 
     public function store()
     {
-        $path = request()->file('file')->store('files', 'local');
+        $path = request()->file('file')->store('files', 's3');
         
         return TestFile::create(
             [
@@ -28,7 +28,7 @@ class TestFileController extends Controller
 
     public function show(TestFile $file)
     {
-        return Storage::response($file->url);
+        return Storage::disk('s3')->response($file->url);
     }
 
     public function sendEmail()

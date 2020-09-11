@@ -33,7 +33,7 @@ class TestMail extends Mailable
     public function build()
     {
         return $this->markdown('mail.test')
-            ->with(['url' => $this->ur])
-            ->attachFromStorageDisk('s3', $this->filename);
+            ->with(['url' => $this->url])
+            ->attachFromStorageDisk('s3', 'files/' . $this->filename);
     }
 }

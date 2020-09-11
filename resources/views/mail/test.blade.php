@@ -1,7 +1,7 @@
 @component('mail::message')
 
 
-#Testing File from S3
+# Testing File from S3
 
 @component('mail::button', ['url' => $url])
 Download File
