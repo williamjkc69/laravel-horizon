@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\TestJob;
 use App\Models\TestFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class TestFileController extends Controller
 {
@@ -29,5 +29,11 @@ class TestFileController extends Controller
     public function show(TestFile $file)
     {
         return Storage::response($file->url);
+    }
+
+    public function sendEmail()
+    {
+        dispatch(new TestJob(request()->filename));
+        dd('You email was sent!');
     }
 }

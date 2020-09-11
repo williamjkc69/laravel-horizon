@@ -21,6 +21,20 @@
 
         <button class="btn btn-info btn-block my-4" type="submit">Create</button>
     </form>
+    <br>
+    <br>
+    <br>
+
+    <form action="/test/email" method="POST" enctype="multipart/form-data" class="border border-light p-5">
+    @csrf
+        <p class="h4 mb-4 text-center">Upload File</p>
+
+        <div class="text-center"">
+            <input type="text" class=" mb-4 form-control-file" name="filename">
+        </div>
+
+        <button class="btn btn-info btn-block my-4" type="submit">Send</button>
+    </form>
     </div>
 </body>
 </html>
